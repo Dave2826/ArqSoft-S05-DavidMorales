@@ -1,0 +1,25 @@
+﻿@model List<Citas.App.Models.Cita>
+
+<h1>Citas por Paciente</h1>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Motivo</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cita in Model)
+        {
+            <tr>
+                <td>@cita.Fecha</td>
+                <td>@cita.Hora</td>
+                <td>@cita.Motivo</td>
+                <td>@cita.Estado</td>
+            </tr>
+        }
+    </tbody>
+</table>

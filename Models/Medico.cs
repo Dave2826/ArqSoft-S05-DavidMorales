@@ -1,4 +1,4 @@
-﻿namespace CitasApp.Models
+﻿namespace Citas.App.Models
 {
     public class Medico
     {

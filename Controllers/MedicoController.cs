@@ -1,5 +1,4 @@
 ﻿using Citas.App.Models;
-using CitasApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Citas.App.Controllers

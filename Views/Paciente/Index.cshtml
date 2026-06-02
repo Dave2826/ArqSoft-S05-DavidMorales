@@ -1,0 +1,14 @@
+﻿@model List<Citas.App.Models.Paciente>
+
+<h1>Pacientes</h1>
+
+<ul>
+    @foreach (var paciente in Model)
+    {
+        <li>
+            <a asp-action="Detalle" asp-route-id="@paciente.Id">
+                @paciente.Nombre @paciente.Apellido
+            </a>
+        </li>
+    }
+</ul>
