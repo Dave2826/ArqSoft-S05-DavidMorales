@@ -1,3 +1,11 @@
-﻿bin/
-obj/
+﻿# Codex
+codex-run.log
+codex-run.err.log
+
+# Logs
+*.log
+
+# Visual Studio
 .vs/
+bin/
+obj/
