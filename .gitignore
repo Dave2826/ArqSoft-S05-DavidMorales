@@ -9,3 +9,4 @@ codex-run.err.log
 .vs/
 bin/
 obj/
+*.user
