@@ -1,10 +1,12 @@
-﻿@model List<Citas.App.Models.Cita>
+﻿@model List<Citas.App.ViewModels.CitaAgendaViewModel>
 
 <h1>Agenda de Citas</h1>
 
 <table border="1">
     <thead>
         <tr>
+            <th>Paciente</th>
+            <th>Médico</th>
             <th>Fecha</th>
             <th>Hora</th>
             <th>Motivo</th>
@@ -15,6 +17,8 @@
         @foreach (var cita in Model)
         {
             <tr>
+                <td>@cita.NombrePaciente</td>
+                <td>@cita.NombreMedico</td>
                 <td>@cita.Fecha</td>
                 <td>@cita.Hora</td>
                 <td>@cita.Motivo</td>
