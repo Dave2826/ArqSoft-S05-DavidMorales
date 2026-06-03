@@ -1,7 +1,12 @@
+using Citas.App.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<PacienteRepository>();
+builder.Services.AddSingleton<MedicoRepository>();
+builder.Services.AddSingleton<CitaRepository>();
 
 var app = builder.Build();
 

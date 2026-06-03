@@ -1,38 +1,27 @@
-﻿using Citas.App.Models;
+using Citas.App.Models;
+using Citas.App.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Citas.App.Controllers
 {
     public class MedicoController : Controller
     {
-        private static List<Medico> medicos = new()
+        private readonly MedicoRepository medicoRepository;
+
+        public MedicoController(MedicoRepository medicoRepository)
         {
-            new Medico
-            {
-                Id = 1,
-                Nombre = "Carlos",
-                Apellido = "Reyes",
-                Especialidad = "Cardiología",
-                NumeroLicencia = "MED001"
-            },
-            new Medico
-            {
-                Id = 2,
-                Nombre = "Patricia",
-                Apellido = "Vega",
-                Especialidad = "Pediatría",
-                NumeroLicencia = "MED002"
-            }
-        };
+            this.medicoRepository = medicoRepository;
+        }
 
         public IActionResult Index()
         {
+            var medicos = medicoRepository.ObtenerTodos();
             return View(medicos);
         }
 
         public IActionResult Detalle(int id)
         {
-            var medico = medicos.FirstOrDefault(m => m.Id == id);
+            var medico = medicoRepository.ObtenerPorId(id);
 
             if (medico == null)
                 return NotFound();

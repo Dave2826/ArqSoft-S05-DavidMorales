@@ -1,38 +1,27 @@
-﻿using Citas.App.Models;
+using Citas.App.Models;
+using Citas.App.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Citas.App.Controllers
 {
     public class PacienteController : Controller
     {
-        private static List<Paciente> pacientes = new()
+        private readonly PacienteRepository pacienteRepository;
+
+        public PacienteController(PacienteRepository pacienteRepository)
         {
-            new Paciente
-            {
-                Id = 1,
-                Nombre = "Juan",
-                Apellido = "Pérez",
-                Email = "juan@email.com",
-                Telefono = "9991112233"
-            },
-            new Paciente
-            {
-                Id = 2,
-                Nombre = "María",
-                Apellido = "López",
-                Email = "maria@email.com",
-                Telefono = "9994445566"
-            }
-        };
+            this.pacienteRepository = pacienteRepository;
+        }
 
         public IActionResult Index()
         {
+            var pacientes = pacienteRepository.ObtenerTodos();
             return View(pacientes);
         }
 
         public IActionResult Detalle(int id)
         {
-            var paciente = pacientes.FirstOrDefault(p => p.Id == id);
+            var paciente = pacienteRepository.ObtenerPorId(id);
 
             if (paciente == null)
                 return NotFound();

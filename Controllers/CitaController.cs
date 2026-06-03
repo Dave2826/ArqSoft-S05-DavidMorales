@@ -1,91 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc;
 using Citas.App.Models;
+using Citas.App.Repositories;
 using Citas.App.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Citas.App.Controllers
 {
     public class CitaController : Controller
     {
-        private static List<Cita> citas = new()
-        {
-            new Cita
-            {
-                Id = 1,
-                PacienteId = 1,
-                MedicoId = 1,
-                Fecha = new DateOnly(2026, 6, 1),
-                Hora = new TimeOnly(9, 0),
-                Motivo = "Consulta general",
-                Estado = "Confirmada"
-            },
-            new Cita
-            {
-                Id = 2,
-                PacienteId = 2,
-                MedicoId = 2,
-                Fecha = new DateOnly(2026, 6, 1),
-                Hora = new TimeOnly(10, 0),
-                Motivo = "Revisión de resultados",
-                Estado = "Pendiente"
-            }
-        };
+        private readonly CitaRepository citaRepository;
+        private readonly PacienteRepository pacienteRepository;
+        private readonly MedicoRepository medicoRepository;
 
-        private static List<Paciente> pacientes = new()
+        public CitaController(
+            CitaRepository citaRepository,
+            PacienteRepository pacienteRepository,
+            MedicoRepository medicoRepository)
         {
-            new Paciente
-            {
-                Id = 1,
-                Nombre = "Juan",
-                Apellido = "Pérez",
-                Email = "juan@email.com",
-                Telefono = "9991112233"
-            },
-            new Paciente
-            {
-                Id = 2,
-                Nombre = "María",
-                Apellido = "López",
-                Email = "maria@email.com",
-                Telefono = "9994445566"
-            }
-        };
-
-        private static List<Medico> medicos = new()
-        {
-            new Medico
-            {
-                Id = 1,
-                Nombre = "Carlos",
-                Apellido = "Reyes",
-                Especialidad = "Cardiología",
-                NumeroLicencia = "MED001"
-            },
-            new Medico
-            {
-                Id = 2,
-                Nombre = "Patricia",
-                Apellido = "Vega",
-                Especialidad = "Pediatría",
-                NumeroLicencia = "MED002"
-            }
-        };
+            this.citaRepository = citaRepository;
+            this.pacienteRepository = pacienteRepository;
+            this.medicoRepository = medicoRepository;
+        }
 
         public IActionResult Index()
         {
+            var citas = citaRepository.ObtenerTodos();
             return View(CrearAgenda(citas));
         }
 
         public IActionResult PorPaciente(int pacienteId)
         {
-            var resultado = citas
+            var resultado = citaRepository.ObtenerTodos()
                 .Where(c => c.PacienteId == pacienteId)
                 .ToList();
 
             return View(CrearAgenda(resultado));
         }
 
-        private static List<CitaAgendaViewModel> CrearAgenda(IEnumerable<Cita> citasOrigen)
+        private List<CitaAgendaViewModel> CrearAgenda(IEnumerable<Cita> citasOrigen)
         {
+            var pacientes = pacienteRepository.ObtenerTodos();
+            var medicos = medicoRepository.ObtenerTodos();
+
             return citasOrigen
                 .Select(cita =>
                 {

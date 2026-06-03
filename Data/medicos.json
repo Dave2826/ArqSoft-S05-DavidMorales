@@ -1,0 +1,16 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Carlos",
+    "Apellido": "Reyes",
+    "Especialidad": "Cardiología",
+    "NumeroLicencia": "MED001"
+  },
+  {
+    "Id": 2,
+    "Nombre": "Patricia",
+    "Apellido": "Vega",
+    "Especialidad": "Pediatría",
+    "NumeroLicencia": "MED002"
+  }
+]

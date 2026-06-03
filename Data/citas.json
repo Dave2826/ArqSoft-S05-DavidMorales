@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "PacienteId": 1,
+    "MedicoId": 1,
+    "Fecha": "2026-06-01",
+    "Hora": "09:00:00",
+    "Motivo": "Consulta general",
+    "Estado": "Confirmada"
+  },
+  {
+    "Id": 2,
+    "PacienteId": 2,
+    "MedicoId": 2,
+    "Fecha": "2026-06-01",
+    "Hora": "10:00:00",
+    "Motivo": "Revisión de resultados",
+    "Estado": "Pendiente"
+  }
+]
