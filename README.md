@@ -92,9 +92,6 @@ wwwroot/
 
 ![Agenda](images/agenda.png)
 
-### Citas por paciente
-
-![Citas por paciente](images/citas-por-paciente.png)
 
 ### Persistencia JSON
 
