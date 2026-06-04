@@ -12,5 +12,12 @@
     "Apellido": "Vega",
     "Especialidad": "Pediatría",
     "NumeroLicencia": "MED002"
+  },
+  {
+    "Id": 3,
+    "Nombre": "Jorge",
+    "Apellido": "Pedrozo",
+    "Especialidad": "Traumatología",
+    "NumeroLicencia": "MED003"
   }
 ]

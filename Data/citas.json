@@ -16,5 +16,14 @@
     "Hora": "10:00:00",
     "Motivo": "Revisión de resultados",
     "Estado": "Pendiente"
+  },
+  {
+    "Id": 3,
+    "PacienteId": 3,
+    "MedicoId": 3,
+    "Fecha": "2026-06-15",
+    "Hora": "14:00:00",
+    "Motivo": "Revisión de Prostata",
+    "Estado": "Confirmada"
   }
 ]
