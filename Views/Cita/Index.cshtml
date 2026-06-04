@@ -1,29 +1,52 @@
 ﻿@model List<Citas.App.ViewModels.CitaAgendaViewModel>
 
-<h1>Agenda de Citas</h1>
+@{
+    ViewData["Title"] = "Agenda de Citas";
+}
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>Paciente</th>
-            <th>Médico</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Motivo</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var cita in Model)
-        {
-            <tr>
-                <td>@cita.NombrePaciente</td>
-                <td>@cita.NombreMedico</td>
-                <td>@cita.Fecha</td>
-                <td>@cita.Hora</td>
-                <td>@cita.Motivo</td>
-                <td>@cita.Estado</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="page-header">
+    <span class="section-kicker">Agenda médica</span>
+    <h1>Agenda de Citas</h1>
+    <p>Consulta el calendario de atenciones programadas.</p>
+</div>
+
+<div class="card app-card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 medical-table">
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Médico</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Motivo</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cita in Model)
+                {
+                    var estado = cita.Estado?.Trim().ToLowerInvariant();
+                    var badgeClass = estado switch
+                    {
+                        "confirmada" => "text-bg-success",
+                        "pendiente" => "text-bg-warning",
+                        "cancelada" => "text-bg-danger",
+                        _ => "text-bg-secondary"
+                    };
+
+                    <tr>
+                        <td><strong>@cita.NombrePaciente</strong></td>
+                        <td>@cita.NombreMedico</td>
+                        <td>@cita.Fecha</td>
+                        <td>@cita.Hora</td>
+                        <td>@cita.Motivo</td>
+                        <td>
+                            <span class="badge rounded-pill @badgeClass">@cita.Estado</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

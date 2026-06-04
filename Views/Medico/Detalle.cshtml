@@ -1,10 +1,31 @@
 ﻿@model Citas.App.Models.Medico
 
-<h1>Detalle del Médico</h1>
+@{
+    ViewData["Title"] = "Detalle del Médico";
+}
 
-<p><strong>Nombre:</strong> @Model.Nombre</p>
-<p><strong>Apellido:</strong> @Model.Apellido</p>
-<p><strong>Especialidad:</strong> @Model.Especialidad</p>
-<p><strong>Licencia:</strong> @Model.NumeroLicencia</p>
+<div class="page-header">
+    <span class="section-kicker">Médico</span>
+    <h1>@Model.Nombre @Model.Apellido</h1>
+    <p>Perfil profesional y especialidad médica.</p>
+</div>
 
-<a asp-action="Index">Volver</a>
+<div class="card app-card detail-card">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Model.Nombre</dd>
+
+            <dt class="col-sm-3">Apellido</dt>
+            <dd class="col-sm-9">@Model.Apellido</dd>
+
+            <dt class="col-sm-3">Especialidad</dt>
+            <dd class="col-sm-9">@Model.Especialidad</dd>
+
+            <dt class="col-sm-3">Licencia</dt>
+            <dd class="col-sm-9">@Model.NumeroLicencia</dd>
+        </dl>
+    </div>
+</div>
+
+<a class="btn btn-outline-secondary mt-3" asp-action="Index">Volver</a>

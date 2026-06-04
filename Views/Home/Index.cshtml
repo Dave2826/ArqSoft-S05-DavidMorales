@@ -1,8 +1,66 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="hero-card mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <span class="section-kicker">Sistema médico</span>
+            <h1 class="display-5 fw-bold mb-3">Gestión de citas médicas</h1>
+            <p class="lead mb-4">
+                Consulta pacientes, médicos y agenda desde una interfaz clara, profesional y responsive.
+            </p>
+            <a class="btn btn-light btn-lg me-2" asp-controller="Cita" asp-action="Index">
+                Ver agenda
+            </a>
+            <a class="btn btn-outline-light btn-lg" asp-controller="Paciente" asp-action="Index">
+                Pacientes
+            </a>
+        </div>
+        <div class="col-lg-5">
+            <div class="hero-summary">
+                <div>
+                    <span class="summary-number">24/7</span>
+                    <span class="summary-label">Acceso a información clínica</span>
+                </div>
+                <div>
+                    <span class="summary-number">MVC</span>
+                    <span class="summary-label">Aplicación organizada y mantenible</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card app-card h-100">
+            <div class="card-body">
+                <span class="card-icon">P</span>
+                <h2 class="h5 mt-3">Pacientes</h2>
+                <p class="text-muted">Consulta la información de contacto y datos principales.</p>
+                <a class="btn btn-primary" asp-controller="Paciente" asp-action="Index">Ver pacientes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card app-card h-100">
+            <div class="card-body">
+                <span class="card-icon">M</span>
+                <h2 class="h5 mt-3">Médicos</h2>
+                <p class="text-muted">Revisa especialidades y licencias profesionales.</p>
+                <a class="btn btn-primary" asp-controller="Medico" asp-action="Index">Ver médicos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card app-card h-100">
+            <div class="card-body">
+                <span class="card-icon">C</span>
+                <h2 class="h5 mt-3">Agenda</h2>
+                <p class="text-muted">Visualiza citas, horarios, motivos y estado actual.</p>
+                <a class="btn btn-primary" asp-controller="Cita" asp-action="Index">Ver agenda</a>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,14 +1,43 @@
 ﻿@model List<Citas.App.Models.Paciente>
 
-<h1>Pacientes</h1>
+@{
+    ViewData["Title"] = "Pacientes";
+}
 
-<ul>
-    @foreach (var paciente in Model)
-    {
-        <li>
-            <a asp-action="Detalle" asp-route-id="@paciente.Id">
-                @paciente.Nombre @paciente.Apellido
-            </a>
-        </li>
-    }
-</ul>
+<div class="page-header">
+    <span class="section-kicker">Directorio clínico</span>
+    <h1>Pacientes</h1>
+    <p>Listado de pacientes registrados en el sistema.</p>
+</div>
+
+<div class="card app-card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 medical-table">
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th class="text-end">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var paciente in Model)
+                {
+                    <tr>
+                        <td><strong>@paciente.Nombre @paciente.Apellido</strong></td>
+                        <td>@paciente.Email</td>
+                        <td>@paciente.Telefono</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-primary"
+                               asp-action="Detalle"
+                               asp-route-id="@paciente.Id">
+                                Ver detalle
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

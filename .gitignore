@@ -1,8 +1,4 @@
-﻿# Codex
-codex-run.log
-codex-run.err.log
-
-# Logs
+﻿# Logs
 *.log
 
 # Visual Studio
