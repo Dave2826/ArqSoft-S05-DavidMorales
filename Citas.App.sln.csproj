@@ -20,4 +20,12 @@
     <ProjectReference Include="CitasApp.Infrastructure\CitasApp.Infrastructure.csproj" />
   </ItemGroup>
 
+  <!-- Exclude source files from referenced projects to avoid duplicate compilation
+       (these projects are included via ProjectReference and should not be compiled
+       again as source by the web project). -->
+  <ItemGroup>
+    <Compile Remove="CitasApp.Domain\**\*.cs" />
+    <Compile Remove="CitasApp.Infrastructure\**\*.cs" />
+  </ItemGroup>
+
 </Project>
