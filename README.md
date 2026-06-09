@@ -4,9 +4,9 @@ Aplicación web desarrollada con ASP.NET Core MVC para la gestión básica de pa
 
 ## Descripción
 
-CitasApp es una práctica académica enfocada en la implementación del patrón MVC (Model-View-Controller) utilizando ASP.NET Core. El proyecto permite visualizar información de pacientes, médicos y citas desde una interfaz web organizada y responsive.
+CitasApp es una práctica académica desarrollada en la materia de Arquitectura de Software. El proyecto inició como una aplicación MVC tradicional y posteriormente evolucionó hacia una arquitectura hexagonal multi-proyecto (Ports & Adapters), permitiendo una mejor separación de responsabilidades entre la lógica de negocio, la infraestructura y la capa de presentación.
 
-La aplicación utiliza persistencia mediante archivos JSON y una arquitectura basada en Models, Views, Controllers y Repositories para mantener una separación clara de responsabilidades.
+La aplicación permite consultar pacientes, médicos y citas médicas desde una interfaz web moderna y responsive. La persistencia se realiza mediante archivos JSON, eliminando la necesidad de una base de datos para fines académicos.
 
 ## Tecnologías utilizadas
 
@@ -14,6 +14,8 @@ La aplicación utiliza persistencia mediante archivos JSON y una arquitectura ba
 * C#
 * Bootstrap 5
 * JSON
+* Arquitectura Hexagonal (Ports & Adapters)
+* Dependency Injection
 * Git
 * GitHub
 * Visual Studio 2022
@@ -23,47 +25,106 @@ La aplicación utiliza persistencia mediante archivos JSON y una arquitectura ba
 ### Pacientes
 
 * Consulta de pacientes registrados.
-* Visualización de detalles individuales.
+* Visualización de información detallada.
+* Navegación sencilla mediante interfaz web.
 
 ### Médicos
 
 * Consulta de médicos registrados.
-* Visualización de detalles individuales.
-* Consulta de especialidades y licencias.
+* Visualización de especialidades.
+* Consulta de licencias profesionales.
+* Vista detallada de cada médico.
 
 ### Agenda de citas
 
-* Consulta de citas médicas.
-* Consulta de citas filtradas por paciente.
+* Consulta general de citas médicas.
+* Consulta filtrada por paciente.
 * Visualización de fecha, hora, motivo y estado.
+* Relación entre pacientes y médicos.
 
 ### Persistencia
 
-* Almacenamiento de información en archivos JSON.
+* Almacenamiento de información mediante archivos JSON.
 * Lectura de datos mediante repositorios.
-* Separación entre la capa de presentación y acceso a datos.
+* Separación entre dominio, infraestructura y presentación.
+
+## Evolución del proyecto
+
+Durante el desarrollo se realizaron las siguientes etapas:
+
+1. Implementación inicial utilizando ASP.NET Core MVC.
+2. Creación de Models, Controllers y Views.
+3. Incorporación de persistencia mediante archivos JSON.
+4. Implementación de repositorios para acceso a datos.
+5. Mejora visual de la interfaz de usuario.
+6. Migración a arquitectura hexagonal multi-proyecto.
+7. Separación de responsabilidades mediante Domain e Infrastructure.
+8. Inyección de dependencias mediante interfaces y adaptadores.
 
 ## Arquitectura del proyecto
 
-El proyecto está organizado siguiendo el patrón MVC:
+La solución está organizada siguiendo una arquitectura hexagonal (Ports & Adapters), permitiendo desacoplar la lógica de negocio de los mecanismos de persistencia y de la interfaz web.
 
-* Models: representan las entidades del dominio.
-* Views: contienen la interfaz de usuario.
-* Controllers: coordinan la interacción entre vistas y datos.
-* Repositories: encapsulan el acceso a los archivos JSON.
-* ViewModels: preparan la información para ser mostrada en las vistas.
-* Data: almacena los archivos JSON utilizados como persistencia.
+### CitasApp.Domain
+
+Contiene el núcleo del sistema:
+
+* Entidades del dominio.
+* Interfaces (puertos) utilizadas por la aplicación.
+* Contratos que definen el acceso a los datos.
+
+### CitasApp.Infrastructure
+
+Contiene los adaptadores de infraestructura:
+
+* Implementaciones de los repositorios.
+* Persistencia mediante archivos JSON.
+* Acceso a los datos almacenados.
+
+### Proyecto Web (ASP.NET Core MVC)
+
+Contiene la capa de presentación:
+
+* Controllers
+* Views
+* ViewModels
+
+Los controladores dependen de interfaces del dominio y reciben sus implementaciones mediante Dependency Injection.
+
+### Flujo de trabajo
+
+```text
+Usuario
+   │
+   ▼
+Controllers (MVC)
+   │
+   ▼
+Interfaces (Domain)
+   │
+   ▼
+Repositories (Infrastructure)
+   │
+   ▼
+Archivos JSON
+```
 
 ## Estructura principal
 
 ```text
+CitasApp.Domain/
+├── Interfaces/
+└── Models/
+
+CitasApp.Infrastructure/
+└── Repositories/
+
 Controllers/
-Models/
-ViewModels/
-Repositories/
 Views/
+ViewModels/
 Data/
 wwwroot/
+Program.cs
 ```
 
 ## Capturas de pantalla
@@ -92,18 +153,31 @@ wwwroot/
 
 ![Agenda](images/agenda.png)
 
-
 ### Persistencia JSON
 
 ![Persistencia JSON](images/json.png)
 
+### Arquitectura Hexagonal
+
+![Arquitectura Hexagonal](images/arquitectura-hexagonal.1.png)
+![Arquitectura Hexagonal](images/arquitectura-hexagonal.2.png)
+
+La solución fue migrada a una arquitectura hexagonal multi-proyecto, separando claramente las responsabilidades entre dominio, infraestructura y presentación.
+
 ### Historial de commits
 
-![GitHub Commits](images/github-commits.png)
+![GitHub Commits](images/github-commits2.png)
 
 ## Uso de Inteligencia Artificial
 
-Se utilizó inteligencia artificial como herramienta de apoyo para resolver dudas puntuales relacionadas con la organización del proyecto, arquitectura MVC, persistencia JSON y validación de soluciones.
+Se utilizó inteligencia artificial como herramienta de apoyo para resolver dudas puntuales relacionadas con:
+
+* Arquitectura MVC.
+* Arquitectura Hexagonal.
+* Persistencia mediante JSON.
+* Organización de proyectos ASP.NET Core.
+* Dependency Injection.
+* Validación de soluciones y resolución de dudas técnicas.
 
 El análisis, implementación, pruebas, depuración, integración y comprensión del código fueron realizados de manera independiente.
 
@@ -113,6 +187,6 @@ David Morales Guerrero
 
 Tecnológico del Software
 
-Arquitectura de Software
+Materia: Arquitectura de Software
 
 2026
