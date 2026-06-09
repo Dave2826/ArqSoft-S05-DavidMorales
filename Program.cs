@@ -1,12 +1,32 @@
-using Citas.App.Repositories;
+using CitasApp.Domain.Interfaces;
+using CitasApp.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<PacienteRepository>();
-builder.Services.AddSingleton<MedicoRepository>();
-builder.Services.AddSingleton<CitaRepository>();
+// Register domain repository interfaces to their Infrastructure implementations.
+// We construct the implementations with the Data directory path from the host environment.
+builder.Services.AddSingleton<IPacienteRepository>(sp =>
+{
+    var env = sp.GetRequiredService<IWebHostEnvironment>();
+    var dataPath = Path.Combine(env.ContentRootPath, "Data");
+    return new PacienteRepository(dataPath);
+});
+
+builder.Services.AddSingleton<IMedicoRepository>(sp =>
+{
+    var env = sp.GetRequiredService<IWebHostEnvironment>();
+    var dataPath = Path.Combine(env.ContentRootPath, "Data");
+    return new MedicoRepository(dataPath);
+});
+
+builder.Services.AddSingleton<ICitaRepository>(sp =>
+{
+    var env = sp.GetRequiredService<IWebHostEnvironment>();
+    var dataPath = Path.Combine(env.ContentRootPath, "Data");
+    return new CitaRepository(dataPath);
+});
 
 var app = builder.Build();
 

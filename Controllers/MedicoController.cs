@@ -1,14 +1,14 @@
-using Citas.App.Models;
 using Citas.App.Repositories;
+using CitasApp.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Citas.App.Controllers
 {
     public class MedicoController : Controller
     {
-        private readonly MedicoRepository medicoRepository;
+        private readonly CitasApp.Domain.Interfaces.IMedicoRepository medicoRepository;
 
-        public MedicoController(MedicoRepository medicoRepository)
+        public MedicoController(CitasApp.Domain.Interfaces.IMedicoRepository medicoRepository)
         {
             this.medicoRepository = medicoRepository;
         }

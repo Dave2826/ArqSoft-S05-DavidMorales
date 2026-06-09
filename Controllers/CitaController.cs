@@ -1,5 +1,5 @@
-using Citas.App.Models;
 using Citas.App.Repositories;
+using CitasApp.Domain.Models;
 using Citas.App.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,14 +7,14 @@ namespace Citas.App.Controllers
 {
     public class CitaController : Controller
     {
-        private readonly CitaRepository citaRepository;
-        private readonly PacienteRepository pacienteRepository;
-        private readonly MedicoRepository medicoRepository;
+        private readonly CitasApp.Domain.Interfaces.ICitaRepository citaRepository;
+        private readonly CitasApp.Domain.Interfaces.IPacienteRepository pacienteRepository;
+        private readonly CitasApp.Domain.Interfaces.IMedicoRepository medicoRepository;
 
         public CitaController(
-            CitaRepository citaRepository,
-            PacienteRepository pacienteRepository,
-            MedicoRepository medicoRepository)
+            CitasApp.Domain.Interfaces.ICitaRepository citaRepository,
+            CitasApp.Domain.Interfaces.IPacienteRepository pacienteRepository,
+            CitasApp.Domain.Interfaces.IMedicoRepository medicoRepository)
         {
             this.citaRepository = citaRepository;
             this.pacienteRepository = pacienteRepository;
@@ -36,7 +36,7 @@ namespace Citas.App.Controllers
             return View(CrearAgenda(resultado));
         }
 
-        private List<CitaAgendaViewModel> CrearAgenda(IEnumerable<Cita> citasOrigen)
+        private List<CitaAgendaViewModel> CrearAgenda(IEnumerable<CitasApp.Domain.Models.Cita> citasOrigen)
         {
             var pacientes = pacienteRepository.ObtenerTodos();
             var medicos = medicoRepository.ObtenerTodos();

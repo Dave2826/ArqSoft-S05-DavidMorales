@@ -1,20 +1,22 @@
-using Citas.App.Models;
 using Citas.App.Repositories;
+using CitasApp.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Citas.App.Controllers
 {
     public class PacienteController : Controller
     {
-        private readonly PacienteRepository pacienteRepository;
+        private readonly CitasApp.Domain.Interfaces.IPacienteRepository pacienteRepository;
 
-        public PacienteController(PacienteRepository pacienteRepository)
+        public PacienteController(CitasApp.Domain.Interfaces.IPacienteRepository pacienteRepository)
         {
             this.pacienteRepository = pacienteRepository;
         }
 
         public IActionResult Index()
         {
+            // Repository now returns domain models; views expect the compatibility wrappers which inherit Domain models,
+            // so we can pass the domain models directly.
             var pacientes = pacienteRepository.ObtenerTodos();
             return View(pacientes);
         }
