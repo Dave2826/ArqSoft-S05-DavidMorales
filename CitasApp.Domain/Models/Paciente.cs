@@ -1,4 +1,4 @@
-﻿namespace Citas.App.Models
+namespace CitasApp.Domain.Models
 {
     public class Paciente
     {
