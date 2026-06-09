@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\CitasApp.Domain\CitasApp.Domain.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!-- Avoid generating assembly attributes in class libraries to prevent duplicate attributes
+         when building together with an executable Web project which generates assembly info. -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- Prevent emitting the TargetFrameworkAttribute from class libraries to avoid duplicates
+         when the executable project emits it for the final assembly. -->
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+
+</Project>
