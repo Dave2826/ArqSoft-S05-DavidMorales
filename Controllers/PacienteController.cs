@@ -1,4 +1,3 @@
-using Citas.App.Repositories;
 using CitasApp.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
