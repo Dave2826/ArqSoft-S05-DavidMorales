@@ -1,52 +1,25 @@
-using System.Text.Json;
+using CitasApp.Infrastructure.Repositories;
 using Citas.App.Models;
 
 namespace Citas.App.Repositories
 {
+    // Adapter kept in Web project to preserve existing DI registrations and usage.
     public class PacienteRepository
     {
-        private readonly string archivoJson;
-        private readonly JsonSerializerOptions opcionesJson = new()
-        {
-            WriteIndented = true
-        };
+        private readonly CitasApp.Infrastructure.Repositories.PacienteRepository impl;
 
         public PacienteRepository(IWebHostEnvironment environment)
         {
-            archivoJson = Path.Combine(environment.ContentRootPath, "Data", "pacientes.json");
+            var dataPath = Path.Combine(environment.ContentRootPath, "Data");
+            impl = new CitasApp.Infrastructure.Repositories.PacienteRepository(dataPath);
         }
 
-        public List<Paciente> ObtenerTodos()
-        {
-            if (!File.Exists(archivoJson))
-                return new List<Paciente>();
+        public List<Paciente> ObtenerTodos() => impl.ObtenerTodos();
 
-            var contenido = File.ReadAllText(archivoJson);
-            return JsonSerializer.Deserialize<List<Paciente>>(contenido, opcionesJson) ?? new List<Paciente>();
-        }
+        public Paciente? ObtenerPorId(int id) => impl.ObtenerPorId(id);
 
-        public Paciente? ObtenerPorId(int id)
-        {
-            return ObtenerTodos().FirstOrDefault(p => p.Id == id);
-        }
+        public void Guardar(List<Paciente> pacientes) => impl.Guardar(pacientes);
 
-        public void Guardar(List<Paciente> pacientes)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(archivoJson)!);
-            var contenido = JsonSerializer.Serialize(pacientes, opcionesJson);
-            File.WriteAllText(archivoJson, contenido);
-        }
-
-        public void Actualizar(Paciente pacienteActualizado)
-        {
-            var pacientes = ObtenerTodos();
-            var indice = pacientes.FindIndex(p => p.Id == pacienteActualizado.Id);
-
-            if (indice >= 0)
-            {
-                pacientes[indice] = pacienteActualizado;
-                Guardar(pacientes);
-            }
-        }
+        public void Actualizar(Paciente pacienteActualizado) => impl.Actualizar(pacienteActualizado);
     }
 }
