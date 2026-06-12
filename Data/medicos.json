@@ -19,5 +19,12 @@
     "Apellido": "Pedrozo",
     "Especialidad": "Traumatología",
     "NumeroLicencia": "MED003"
+  },
+  {
+    "Id": 20,
+    "Nombre": "Ramon",
+    "Apellido": "Perez",
+    "Especialidad": "General",
+    "NumeroLicencia": "MED020"
   }
 ]
