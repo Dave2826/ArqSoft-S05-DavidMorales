@@ -14,11 +14,23 @@ La aplicación permite consultar pacientes, médicos y citas médicas desde una 
 * C#
 * Bootstrap 5
 * JSON
+* .NET 10
 * Arquitectura Hexagonal (Ports & Adapters)
 * Dependency Injection
+* Patrones GOF (Factory, Decorator y Observer)
 * Git
 * GitHub
-* Visual Studio 2022
+* Visual Studio 2022 / Visual Studio 2026
+* PowerShell
+
+## Ramas del repositorio
+
+| Rama | Propósito |
+|------|-----------|
+| main | Aplicación MVC con persistencia JSON |
+| hexagonal | Migración a arquitectura hexagonal multi-proyecto |
+| api-rest | Implementación de API REST |
+| gof | Implementación de Factory, Decorator y Observer |
 
 ## Funcionalidades
 
@@ -48,6 +60,36 @@ La aplicación permite consultar pacientes, médicos y citas médicas desde una 
 * Lectura de datos mediante repositorios.
 * Separación entre dominio, infraestructura y presentación.
 
+## Actividades académicas
+
+### Arquitectura Hexagonal
+
+Migración de MVC tradicional a arquitectura hexagonal (Ports & Adapters), separando el dominio, la infraestructura y la presentación en proyectos independientes.
+
+[Documentación completa](Documentacion-Arquitectura-Hexagonal.md)
+
+![Arquitectura Hexagonal](images/arquitectura-hexagonal.1.png)
+
+### API REST
+
+Exposición de la información del sistema de citas médicas mediante endpoints HTTP, reutilizando la arquitectura hexagonal existente sin modificar la lógica de negocio.
+
+[Documentación completa](Documentacion-API-REST.md)
+
+![API REST - Pacientes](images/evidencia-api-pacientes.png)
+
+### Patrones GOF
+
+Implementación de los patrones de diseño Factory, Decorator y Observer sobre la arquitectura hexagonal:
+
+* **Factory:** `RepositoryFactory` centraliza la creación de repositorios según el entorno.
+* **Decorator:** `LoggingPacienteRepository` y `LoggingCitaRepository` agregan logging sin modificar los repositorios reales.
+* **Observer:** `Notificador` y `ConsoleNotificador` notifican eventos de confirmación de citas en consola.
+
+[Documentación completa](Documentacion-GOF-Factory-Decorator-Observer.md)
+
+![Factory](images/evidencia-factory-cita.png) ![Decorator](images/evidencia-decorator-cita.png) ![Observer](images/evidencia-observer-cita.png)
+
 ## Evolución del proyecto
 
 Durante el desarrollo se realizaron las siguientes etapas:
@@ -60,10 +102,14 @@ Durante el desarrollo se realizaron las siguientes etapas:
 6. Migración a arquitectura hexagonal multi-proyecto.
 7. Separación de responsabilidades mediante Domain e Infrastructure.
 8. Inyección de dependencias mediante interfaces y adaptadores.
+9. Implementación de API REST para exponer datos mediante endpoints HTTP.
+10. Implementación de patrones GOF: Factory, Decorator y Observer.
 
 ## Arquitectura del proyecto
 
 La solución está organizada siguiendo una arquitectura hexagonal (Ports & Adapters), permitiendo desacoplar la lógica de negocio de los mecanismos de persistencia y de la interfaz web.
+
+Los patrones Factory, Decorator y Observer fueron incorporados durante la evolución del proyecto para demostrar principios de diseño orientado a objetos, desacoplamiento entre componentes y extensibilidad de la solución.
 
 ### CitasApp.Domain
 
@@ -114,12 +160,34 @@ Archivos JSON
 ```text
 CitasApp.Domain/
 ├── Interfaces/
+│   ├── IPacienteRepository.cs
+│   ├── IMedicoRepository.cs
+│   ├── ICitaRepository.cs
+│   └── IObserver.cs
 └── Models/
+    ├── Paciente.cs
+    ├── Medico.cs
+    └── Cita.cs
 
 CitasApp.Infrastructure/
-└── Repositories/
+├── Repositories/
+│   ├── PacienteRepository.cs
+│   ├── MedicoRepository.cs
+│   ├── CitaRepository.cs
+│   ├── MemoriaPacienteRepository.cs
+│   ├── LoggingPacienteRepository.cs
+│   ├── LoggingCitaRepository.cs
+│   └── RepositoryFactory.cs
+└── Notifiers/
+    ├── Notificador.cs
+    └── ConsoleNotificador.cs
 
 Controllers/
+├── HomeController.cs
+├── PacienteController.cs
+├── MedicoController.cs
+└── CitaController.cs
+
 Views/
 ViewModels/
 Data/
@@ -167,6 +235,16 @@ La solución fue migrada a una arquitectura hexagonal multi-proyecto, separando 
 ### Historial de commits
 
 ![GitHub Commits](images/github-commits2.png)
+
+## Cómo ejecutar
+
+```bash
+dotnet restore
+dotnet build
+dotnet run
+```
+
+La aplicación estará disponible en `http://localhost:5036`.
 
 ## Uso de Inteligencia Artificial
 
