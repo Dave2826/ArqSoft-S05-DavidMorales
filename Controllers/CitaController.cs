@@ -1,5 +1,6 @@
 using CitasApp.Domain.Models;
 using Citas.App.ViewModels;
+using CitasApp.Infrastructure.Notifiers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Citas.App.Controllers
@@ -9,15 +10,18 @@ namespace Citas.App.Controllers
         private readonly CitasApp.Domain.Interfaces.ICitaRepository citaRepository;
         private readonly CitasApp.Domain.Interfaces.IPacienteRepository pacienteRepository;
         private readonly CitasApp.Domain.Interfaces.IMedicoRepository medicoRepository;
+        private readonly Notificador _notificador;
 
         public CitaController(
             CitasApp.Domain.Interfaces.ICitaRepository citaRepository,
             CitasApp.Domain.Interfaces.IPacienteRepository pacienteRepository,
-            CitasApp.Domain.Interfaces.IMedicoRepository medicoRepository)
+            CitasApp.Domain.Interfaces.IMedicoRepository medicoRepository,
+            Notificador notificador)
         {
             this.citaRepository = citaRepository;
             this.pacienteRepository = pacienteRepository;
             this.medicoRepository = medicoRepository;
+            _notificador = notificador;
         }
 
         public IActionResult Index()
@@ -61,6 +65,32 @@ namespace Citas.App.Controllers
                     };
                 })
                 .ToList();
+        }
+
+        [HttpPost]
+        public IActionResult Confirmar(int id)
+        {
+            var cita = citaRepository.ObtenerPorId(id);
+
+            if (cita == null)
+                return NotFound();
+
+            Console.WriteLine(
+                $"[CitaController] Confirmando cita #{id}...");
+
+            cita.Estado = "Confirmada";
+            citaRepository.Actualizar(cita);
+
+            Console.WriteLine(
+                $"[CitaController] Estado actualizado. Notificando observers...");
+
+            _notificador.Notificar(
+                $"Cita #{id} confirmada - Motivo: {cita.Motivo}");
+
+            Console.WriteLine(
+                $"[CitaController] Proceso completado.");
+
+            return Ok($"Cita #{id} confirmada exitosamente.");
         }
     }
 }

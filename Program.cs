@@ -1,10 +1,17 @@
 using CitasApp.Domain.Interfaces;
+using CitasApp.Infrastructure.Notifiers;
 using CitasApp.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// GOF Observer: create the subject and attach the concrete observer
+var notificador = new Notificador();
+notificador.Attach(new ConsoleNotificador());
+builder.Services.AddSingleton(notificador);
+
 // Register domain repository interfaces to their Infrastructure implementations.
 // We construct the implementations with the Data directory path from the host environment.
 // Uses RepositoryFactory (GOF Factory) to create the appropriate implementation,
@@ -33,7 +40,13 @@ builder.Services.AddSingleton<ICitaRepository>(sp =>
 {
     var env = sp.GetRequiredService<IWebHostEnvironment>();
     var dataPath = Path.Combine(env.ContentRootPath, "Data");
-    return new CitaRepository(dataPath);
+
+    // Factory: decide qué implementación concreta crear
+    var repositorio = RepositoryFactory.CrearCitaRepository(
+        env.EnvironmentName, dataPath);
+
+    // Decorator: envuelve el repositorio con logging
+    return new LoggingCitaRepository(repositorio);
 });
 
 var app = builder.Build();

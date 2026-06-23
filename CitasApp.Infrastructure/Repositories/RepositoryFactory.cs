@@ -20,5 +20,15 @@ namespace CitasApp.Infrastructure.Repositories
                     new PacienteRepository(dataPath)
             };
         }
+
+        public static ICitaRepository CrearCitaRepository(
+            string entorno,
+            string dataPath)
+        {
+            Console.WriteLine(
+                $"[Factory Cita] Entorno detectado: {entorno}");
+
+            return new CitaRepository(dataPath);
+        }
     }
 }
