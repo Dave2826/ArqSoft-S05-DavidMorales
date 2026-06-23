@@ -32,6 +32,8 @@ La aplicación permite consultar pacientes, médicos y citas médicas desde una 
 | api-rest | Implementación de API REST |
 | gof | Implementación de Factory, Decorator y Observer |
 
+Cada rama representa una etapa evolutiva del proyecto.
+
 ## Funcionalidades
 
 ### Pacientes
@@ -95,15 +97,13 @@ Implementación de los patrones de diseño Factory, Decorator y Observer sobre l
 Durante el desarrollo se realizaron las siguientes etapas:
 
 1. Implementación inicial utilizando ASP.NET Core MVC.
-2. Creación de Models, Controllers y Views.
-3. Incorporación de persistencia mediante archivos JSON.
-4. Implementación de repositorios para acceso a datos.
-5. Mejora visual de la interfaz de usuario.
-6. Migración a arquitectura hexagonal multi-proyecto.
-7. Separación de responsabilidades mediante Domain e Infrastructure.
-8. Inyección de dependencias mediante interfaces y adaptadores.
-9. Implementación de API REST para exponer datos mediante endpoints HTTP.
-10. Implementación de patrones GOF: Factory, Decorator y Observer.
+2. Incorporación de persistencia mediante archivos JSON.
+3. Implementación de repositorios para acceso a datos.
+4. Migración a arquitectura hexagonal multi-proyecto.
+5. Implementación de API REST para exponer datos mediante endpoints HTTP.
+6. Implementación del patrón Factory para creación de repositorios.
+7. Implementación del patrón Decorator para logging en repositorios.
+8. Implementación del patrón Observer para notificación de citas.
 
 ## Arquitectura del proyecto
 
