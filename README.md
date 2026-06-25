@@ -70,7 +70,7 @@ Migración de MVC tradicional a arquitectura hexagonal (Ports & Adapters), separ
 
 [Documentación completa](Documentacion-Arquitectura-Hexagonal.md)
 
-![Arquitectura Hexagonal](images/arquitectura-hexagonal.1.png)
+![Arquitectura Hexagonal](images/08-estructura-hexagonal.png)
 
 ### API REST
 
@@ -78,7 +78,7 @@ Exposición de la información del sistema de citas médicas mediante endpoints 
 
 [Documentación completa](Documentacion-API-REST.md)
 
-![API REST - Pacientes](images/evidencia-api-pacientes.png)
+![API REST - Pacientes](images/09-api-pacientes.png)
 
 ### Patrones GOF
 
@@ -90,7 +90,23 @@ Implementación de los patrones de diseño Factory, Decorator y Observer sobre l
 
 [Documentación completa](Documentacion-GOF-Factory-Decorator-Observer.md)
 
-![Factory](images/evidencia-factory-cita.png) ![Decorator](images/evidencia-decorator-cita.png) ![Observer](images/evidencia-observer-cita.png)
+![Factory](images/14-factory.png) ![Decorator](images/15-decorator.png) ![Observer](images/16-observer.png)
+
+## Endpoints principales de la API REST
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| GET | /api/pacientes | Obtiene todos los pacientes |
+| GET | /api/pacientes/{id} | Obtiene un paciente por id |
+| GET | /api/medicos | Obtiene todos los médicos |
+| GET | /api/medicos/{id} | Obtiene un médico por id |
+| GET | /api/citas | Obtiene todas las citas |
+| GET | /api/citas/{id} | Obtiene una cita por id |
+| GET | /api/citas/porpaciente/{id} | Obtiene las citas de un paciente |
+| GET | /api/calculadora/sumar | Operación de suma |
+| GET | /api/calculadora/restar | Operación de resta |
+| GET | /api/calculadora/multiplicar | Operación de multiplicación |
+| GET | /api/calculadora/dividir | Operación de división |
 
 ## Evolución del proyecto
 
@@ -197,44 +213,81 @@ Program.cs
 
 ## Capturas de pantalla
 
-### Página principal
+### Aplicación MVC
 
-![Página principal](images/home.png)
+#### Página principal
 
-### Pacientes
+![Página principal](images/01-home.png)
 
-![Pacientes](images/pacientes.png)
+#### Pacientes
 
-### Detalle de paciente
+![Pacientes](images/02-pacientes.png)
 
-![Detalle Paciente](images/detalle-paciente.png)
+#### Detalle de paciente
 
-### Médicos
+![Detalle Paciente](images/03-detalle-paciente.png)
 
-![Médicos](images/medicos.png)
+#### Médicos
 
-### Detalle médico
+![Médicos](images/04-medicos.png)
 
-![Detalle Médico](images/detalle-medico.png)
+#### Detalle médico
 
-### Agenda de citas
+![Detalle Médico](images/05-detalle-medico.png)
 
-![Agenda](images/agenda.png)
+#### Agenda de citas
 
-### Persistencia JSON
+![Agenda](images/06-citas.png)
 
-![Persistencia JSON](images/json.png)
+#### Persistencia JSON
+
+![Persistencia JSON](images/07-json.png)
 
 ### Arquitectura Hexagonal
 
-![Arquitectura Hexagonal](images/arquitectura-hexagonal.1.png)
-![Arquitectura Hexagonal](images/arquitectura-hexagonal.2.png)
+#### Separación de proyectos
 
-La solución fue migrada a una arquitectura hexagonal multi-proyecto, separando claramente las responsabilidades entre dominio, infraestructura y presentación.
+![Arquitectura Hexagonal](images/08-estructura-hexagonal.png)
 
-### Historial de commits
+### API REST
 
-![GitHub Commits](images/github-commits2.png)
+#### GET /api/pacientes
+
+![API Pacientes](images/09-api-pacientes.png)
+
+#### GET /api/medicos
+
+![API Médicos](images/10-api-medicos.png)
+
+#### GET /api/citas
+
+![API Citas](images/11-api-citas.png)
+
+#### GET /api/citas/porpaciente/{id}
+
+![API Citas por paciente](images/12-api-citas-porpaciente.png)
+
+### Patrones GOF
+
+#### Factory
+
+![Factory](images/14-factory.png)
+
+#### Decorator
+
+![Decorator](images/15-decorator.png)
+
+#### Observer
+
+![Observer](images/16-observer.png)
+
+#### Confirmación mediante POST
+
+![Confirmación POST](images/17-confirmar-post.png)
+
+#### Estado actualizado en la agenda
+
+![Cita confirmada](images/18-cita-confirmada.png)
 
 ## Cómo ejecutar
 
