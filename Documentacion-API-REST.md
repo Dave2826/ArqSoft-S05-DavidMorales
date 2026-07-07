@@ -33,6 +33,27 @@ La solución reutiliza:
 
 La API consume los repositorios a través de inyección de dependencias, permitiendo mantener el desacoplamiento entre la capa de presentación y la capa de acceso a datos.
 
+```mermaid
+graph TB
+    subgraph Client
+        PowerShell[Navegador / PowerShell]
+    end
+    subgraph API
+        APIControllers[API Controllers]
+    end
+    subgraph Domain
+        Interfaces
+    end
+    subgraph Infrastructure
+        Repositories
+        JSON[JSON Files]
+    end
+    PowerShell --> APIControllers
+    APIControllers --> Interfaces
+    Interfaces -.-> Repositories
+    Repositories --> JSON
+```
+
 ---
 
 # Endpoints Implementados
