@@ -8,6 +8,14 @@ CitasApp es una práctica académica desarrollada en la materia de Arquitectura 
 
 La aplicación permite consultar pacientes, médicos y citas médicas desde una interfaz web moderna y responsive. La persistencia se realiza mediante archivos JSON, eliminando la necesidad de una base de datos para fines académicos.
 
+```mermaid
+graph TB
+    Client --> Presentation
+    Presentation --> Domain
+    Domain --> Infrastructure
+    Infrastructure --> JSON[JSON Files]
+```
+
 ## Tecnologías utilizadas
 
 * ASP.NET Core MVC
@@ -120,6 +128,14 @@ Durante el desarrollo se realizaron las siguientes etapas:
 6. Implementación del patrón Factory para creación de repositorios.
 7. Implementación del patrón Decorator para logging en repositorios.
 8. Implementación del patrón Observer para notificación de citas.
+
+```mermaid
+graph LR
+    MVC --> Hexagonal
+    Hexagonal --> API[API REST]
+    API --> GOF
+    GOF --> Mermaid
+```
 
 ## Arquitectura del proyecto
 
