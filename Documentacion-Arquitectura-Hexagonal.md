@@ -35,14 +35,11 @@ En esta estructura los controladores dependían directamente de los repositorios
 
 Flujo de funcionamiento:
 
-```text
-Usuario
-   ↓
-Controller
-   ↓
-Repository
-   ↓
-JSON
+```mermaid
+graph LR
+    Usuario --> Controller
+    Controller --> Repository
+    Repository --> JSON
 ```
 
 Esta arquitectura es adecuada para aplicaciones pequeñas, pero genera una dependencia directa entre la lógica de la aplicación y el mecanismo de almacenamiento.
@@ -75,21 +72,22 @@ La migración a arquitectura hexagonal tuvo como objetivo:
 
 La solución fue reorganizada en tres proyectos principales:
 
-```text
-Citas.App.sln
-│
-├── CitasApp.Domain
-│   ├── Models
-│   └── Interfaces
-│
-├── CitasApp.Infrastructure
-│   └── Repositories
-│
-└── Citas.App.sln
-    ├── Controllers
-    ├── Views
-    ├── ViewModels
-    └── Program.cs
+```mermaid
+graph TB
+    subgraph Presentation
+        Controllers
+        Views
+        ViewModels
+    end
+    subgraph Domain
+        Models
+        Interfaces
+    end
+    subgraph Infrastructure
+        Repositories
+    end
+    Controllers --> Interfaces
+    Interfaces -.-> Repositories
 ```
 
 Esta estructura permite aislar la lógica de negocio de la infraestructura y de la interfaz de usuario.
@@ -160,16 +158,22 @@ La aplicación ya no depende directamente de los archivos JSON.
 
 El acceso a los datos se realiza a través de interfaces.
 
-```text
-Usuario
-   ↓
-Controller
-   ↓
-IPacienteRepository
-   ↓
-PacienteRepository
-   ↓
-JSON
+```mermaid
+graph TB
+    Usuario
+    subgraph Presentation
+        Controller
+    end
+    subgraph Domain
+        IPacienteRepository
+    end
+    subgraph Infrastructure
+        PacienteRepository
+    end
+    Usuario --> Controller
+    Controller --> IPacienteRepository
+    IPacienteRepository -.-> PacienteRepository
+    PacienteRepository --> JSON
 ```
 
 Este diseño permite reemplazar fácilmente el mecanismo de almacenamiento sin modificar la lógica principal del sistema.
@@ -180,26 +184,15 @@ Este diseño permite reemplazar fácilmente el mecanismo de almacenamiento sin m
 
 Actualmente la aplicación utiliza:
 
-```text
-PacienteRepository
-↓
-JSON
-```
-
-Sin embargo, en el futuro podría utilizar:
-
-```text
-PacienteSqlRepository
-↓
-SQL Server
-```
-
-o
-
-```text
-PacientePostgresRepository
-↓
-PostgreSQL
+```mermaid
+graph LR
+    Controller --> IPacienteRepository
+    IPacienteRepository -.-> PacienteRepository
+    IPacienteRepository -.-> PacienteSqlRepository
+    IPacienteRepository -.-> PacientePostgresRepository
+    PacienteRepository --> JSON[JSON Files]
+    PacienteSqlRepository --> SQL[SQL Server]
+    PacientePostgresRepository --> PostgreSQL
 ```
 
 sin modificar los controladores ni las vistas.
