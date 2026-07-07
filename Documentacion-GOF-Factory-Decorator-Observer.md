@@ -47,6 +47,13 @@ Se creó la clase estática **RepositoryFactory** dentro del proyecto Infrastruc
 
 Ambos métodos escriben en consola el entorno detectado como evidencia visual.
 
+```mermaid
+graph TB
+    CitaController --> RepositoryFactory
+    RepositoryFactory --> CitaRepository
+    CitaRepository --> JSON[JSON Files]
+```
+
 ## Código relevante
 
 ```csharp
@@ -78,6 +85,13 @@ El patrón Decorator permite agregar responsabilidades adicionales a un objeto d
 Se creó la clase **LoggingCitaRepository** que implementa `ICitaRepository`. Recibe un `ICitaRepository` interno por constructor y envuelve cada método con mensajes de consola antes y después de delegar en el repositorio real.
 
 De esta forma, al invocar `ObtenerPorId` o `Actualizar`, la consola muestra marcas de tiempo y descripciones de la operación realizadas.
+
+```mermaid
+graph TB
+    CitaController --> LoggingCitaRepository
+    LoggingCitaRepository --> CitaRepository
+    CitaRepository --> JSON[JSON Files]
+```
 
 ## Código relevante
 
@@ -191,6 +205,13 @@ notificador.Attach(new ConsoleNotificador());
 builder.Services.AddSingleton(notificador);
 ```
 
+```mermaid
+graph TB
+    CitaController --> Notificador
+    Notificador --> ConsoleNotificador
+    ConsoleNotificador --> Consola[Visual Studio Console]
+```
+
 Figura 3. Evidencia del patrón Observer ejecutándose en consola tras confirmar una cita.
 
 ![Figura 3 - Observer](images/evidencia-observer-cita.png)
@@ -295,29 +316,17 @@ Figura 6. Estructura final del proyecto con los patrones GOF integrados.
 
 # Flujo de Ejecución
 
-```text
-PowerShell
-   ↓  POST /Cita/Confirmar/1
-CitaController.Confirmar(id)
-   ↓
-RepositoryFactory.CrearCitaRepository()      ← FACTORY
-   ↓  retorna ICitaRepository
-LoggingCitaRepository                         ← DECORATOR
-   ├─ ObtenerPorId(1) - inicio
-   ├─ → CitaRepository.ObtenerPorId(1)
-   ├─ ObtenerPorId(1) - encontrado
-   │
-   ├─ cita.Estado = "Confirmada"
-   │
-   ├─ Actualizar(1) - inicio
-   ├─ → CitaRepository.Actualizar(cita)
-   ├─ Actualizar(1) - completado
-   │
-   └─ Notificador.Notificar(...)              ← OBSERVER
-        └─ ConsoleNotificador.Update(...)
-             └─ [Observer ConsoleNotificador] Cita #1 confirmada
-   ↓
-Consola de Visual Studio (evidencia visible)
+```mermaid
+graph TB
+    PowerShell[PowerShell] -->|POST /Cita/Confirmar/1| CitaController
+    CitaController --> RepositoryFactory
+    RepositoryFactory --> LoggingCitaRepository
+    LoggingCitaRepository --> CitaRepository
+    CitaRepository --> JSON[JSON Files]
+    CitaController --> Notificador
+    Notificador --> ConsoleNotificador
+    ConsoleNotificador --> Consola[Visual Studio Console]
+    CitaController --> Respuesta[HTTP 200 OK]
 ```
 
 ---
