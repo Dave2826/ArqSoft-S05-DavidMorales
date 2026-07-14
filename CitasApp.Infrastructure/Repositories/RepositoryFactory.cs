@@ -1,4 +1,5 @@
 ﻿using CitasApp.Domain.Interfaces;
+using CitasApp.Infrastructure.Data;
 
 namespace CitasApp.Infrastructure.Repositories
 {
@@ -6,7 +7,7 @@ namespace CitasApp.Infrastructure.Repositories
     {
         public static IPacienteRepository CrearPacienteRepository(
             string entorno,
-            string dataPath)
+            CitasAppDbContext context)
         {
             Console.WriteLine(
                 $"[Factory] Entorno detectado: {entorno}");
@@ -17,18 +18,18 @@ namespace CitasApp.Infrastructure.Repositories
                     new MemoriaPacienteRepository(),
 
                 _ =>
-                    new PacienteRepository(dataPath)
+                    new PacienteRepository(context)
             };
         }
 
         public static ICitaRepository CrearCitaRepository(
             string entorno,
-            string dataPath)
+            CitasAppDbContext context)
         {
             Console.WriteLine(
                 $"[Factory Cita] Entorno detectado: {entorno}");
 
-            return new CitaRepository(dataPath);
+            return new CitaRepository(context);
         }
     }
 }
