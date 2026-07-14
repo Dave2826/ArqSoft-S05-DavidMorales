@@ -42,11 +42,13 @@ namespace CitasApp.Infrastructure.Data
 
                 entity.HasOne<Paciente>()
                     .WithMany()
-                    .HasForeignKey(c => c.PacienteId);
+                    .HasForeignKey(c => c.PacienteId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne<Medico>()
                     .WithMany()
-                    .HasForeignKey(c => c.MedicoId);
+                    .HasForeignKey(c => c.MedicoId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
