@@ -3,11 +3,7 @@ using CitasApp.Domain.Models;
 
 namespace CitasApp.Domain.Interfaces
 {
-    public interface IMedicoRepository
+    public interface IMedicoRepository : IRepository<Medico>
     {
-        List<Medico> ObtenerTodos();
-        Medico? ObtenerPorId(int id);
-        void Guardar(List<Medico> medicos);
-        void Actualizar(Medico medicoActualizado);
     }
 }

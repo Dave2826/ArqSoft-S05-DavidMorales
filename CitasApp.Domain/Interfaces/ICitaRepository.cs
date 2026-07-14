@@ -3,11 +3,7 @@ using CitasApp.Domain.Models;
 
 namespace CitasApp.Domain.Interfaces
 {
-    public interface ICitaRepository
+    public interface ICitaRepository : IRepository<Cita>
     {
-        List<Cita> ObtenerTodos();
-        Cita? ObtenerPorId(int id);
-        void Guardar(List<Cita> citas);
-        void Actualizar(Cita citaActualizada);
     }
 }

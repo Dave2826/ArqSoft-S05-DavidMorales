@@ -1,6 +1,8 @@
+using CitasApp.Domain.Interfaces;
+
 namespace CitasApp.Domain.Models
 {
-    public class Cita
+    public class Cita : IEntity
     {
         public int Id { get; set; }
 

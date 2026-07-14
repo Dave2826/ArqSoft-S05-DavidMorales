@@ -1,6 +1,7 @@
 using CitasApp.Domain.Interfaces;
 using CitasApp.Infrastructure.Notifiers;
 using CitasApp.Infrastructure.Repositories;
+using Citas.App.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +49,8 @@ builder.Services.AddSingleton<ICitaRepository>(sp =>
     // Decorator: envuelve el repositorio con logging
     return new LoggingCitaRepository(repositorio);
 });
+
+builder.Services.AddScoped<ICitaService, CitaService>();
 
 var app = builder.Build();
 
