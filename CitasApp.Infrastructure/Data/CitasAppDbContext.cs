@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using CitasApp.Domain.Models;
 
 namespace CitasApp.Infrastructure.Data
 {
-    public class CitasAppDbContext : DbContext
+    public class CitasAppDbContext : IdentityDbContext<AppUser>
     {
         public CitasAppDbContext(DbContextOptions<CitasAppDbContext> options)
             : base(options)
@@ -16,6 +17,7 @@ namespace CitasApp.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Paciente>(entity =>
             {
                 entity.ToTable("Pacientes");

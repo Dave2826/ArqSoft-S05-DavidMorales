@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CitasApp.Domain.Interfaces;
 using CitasApp.Infrastructure.Notifiers;
@@ -18,6 +19,11 @@ builder.Services.AddSingleton(notificador);
 // Entity Framework Core with PostgreSQL
 builder.Services.AddDbContext<CitasAppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// ASP.NET Core Identity
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<CitasAppDbContext>()
+    .AddDefaultTokenProviders();
 
 // Register domain repository interfaces to their Infrastructure implementations.
 // Uses RepositoryFactory (GOF Factory) to create the appropriate implementation,
@@ -51,8 +57,16 @@ builder.Services.AddScoped<ICitaRepository>(sp =>
 });
 
 builder.Services.AddScoped<ICitaService, CitaService>();
+builder.Services.AddTransient<IdentitySeeder>();
 
 var app = builder.Build();
+
+// Seed Identity data on startup
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<IdentitySeeder>();
+    await seeder.SeedAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -64,6 +78,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
