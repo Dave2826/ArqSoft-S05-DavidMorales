@@ -4,9 +4,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <!-- The Web project (executable) will generate assembly attributes; allow class libraries
-         to generate theirs. Restore default GenerateAssemblyInfo behavior for the Web project. -->
-    <!--<GenerateAssemblyInfo>false</GenerateAssemblyInfo>-->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,12 +19,13 @@
     <ProjectReference Include="CitasApp.Infrastructure\CitasApp.Infrastructure.csproj" />
   </ItemGroup>
 
-  <!-- Exclude source files from referenced projects to avoid duplicate compilation
+  <!-- Exclude source files from sibling projects to avoid duplicate compilation
        (these projects are included via ProjectReference and should not be compiled
        again as source by the web project). -->
   <ItemGroup>
     <Compile Remove="CitasApp.Domain\**\*.cs" />
     <Compile Remove="CitasApp.Infrastructure\**\*.cs" />
+    <Compile Remove="CitasApp.Tests\**\*.cs" />
   </ItemGroup>
 
 </Project>
