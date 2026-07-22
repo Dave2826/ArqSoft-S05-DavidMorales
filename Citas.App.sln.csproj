@@ -4,12 +4,28 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="CitasApp.Domain\CitasApp.Domain.csproj" />
+    <ProjectReference Include="CitasApp.Infrastructure\CitasApp.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <!-- Exclude source files from sibling projects to avoid duplicate compilation
+       (these projects are included via ProjectReference and should not be compiled
+       again as source by the web project). -->
+  <ItemGroup>
+    <Compile Remove="CitasApp.Domain\**\*.cs" />
+    <Compile Remove="CitasApp.Infrastructure\**\*.cs" />
+    <Compile Remove="CitasApp.Tests\**\*.cs" />
   </ItemGroup>
 
 </Project>
