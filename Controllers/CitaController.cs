@@ -1,67 +1,36 @@
-using Citas.App.Models;
-using Citas.App.Repositories;
-using Citas.App.ViewModels;
+using Citas.App.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Citas.App.Controllers
 {
     public class CitaController : Controller
     {
-        private readonly CitaRepository citaRepository;
-        private readonly PacienteRepository pacienteRepository;
-        private readonly MedicoRepository medicoRepository;
+        private readonly ICitaService _citaService;
 
-        public CitaController(
-            CitaRepository citaRepository,
-            PacienteRepository pacienteRepository,
-            MedicoRepository medicoRepository)
+        public CitaController(ICitaService citaService)
         {
-            this.citaRepository = citaRepository;
-            this.pacienteRepository = pacienteRepository;
-            this.medicoRepository = medicoRepository;
+            _citaService = citaService;
         }
 
         public IActionResult Index()
         {
-            var citas = citaRepository.ObtenerTodos();
-            return View(CrearAgenda(citas));
+            return View(_citaService.ObtenerAgenda());
         }
 
         public IActionResult PorPaciente(int pacienteId)
         {
-            var resultado = citaRepository.ObtenerTodos()
-                .Where(c => c.PacienteId == pacienteId)
-                .ToList();
-
-            return View(CrearAgenda(resultado));
+            return View(_citaService.ObtenerAgendaPorPaciente(pacienteId));
         }
 
-        private List<CitaAgendaViewModel> CrearAgenda(IEnumerable<Cita> citasOrigen)
+        [HttpPost]
+        public IActionResult Confirmar(int id)
         {
-            var pacientes = pacienteRepository.ObtenerTodos();
-            var medicos = medicoRepository.ObtenerTodos();
+            var resultado = _citaService.ConfirmarCita(id);
 
-            return citasOrigen
-                .Select(cita =>
-                {
-                    var paciente = pacientes.FirstOrDefault(p => p.Id == cita.PacienteId);
-                    var medico = medicos.FirstOrDefault(m => m.Id == cita.MedicoId);
+            if (resultado == null)
+                return NotFound();
 
-                    return new CitaAgendaViewModel
-                    {
-                        NombrePaciente = paciente == null
-                            ? $"Paciente #{cita.PacienteId}"
-                            : $"{paciente.Nombre} {paciente.Apellido}",
-                        NombreMedico = medico == null
-                            ? $"Médico #{cita.MedicoId}"
-                            : $"{medico.Nombre} {medico.Apellido}",
-                        Fecha = cita.Fecha,
-                        Hora = cita.Hora,
-                        Motivo = cita.Motivo,
-                        Estado = cita.Estado
-                    };
-                })
-                .ToList();
+            return Ok(resultado);
         }
     }
 }

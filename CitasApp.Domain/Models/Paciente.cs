@@ -1,6 +1,8 @@
-﻿namespace Citas.App.Models
+using CitasApp.Domain.Interfaces;
+
+namespace CitasApp.Domain.Models
 {
-    public class Paciente
+    public class Paciente : IEntity
     {
         public int Id { get; set; }
         public string Nombre { get; set; } = string.Empty;

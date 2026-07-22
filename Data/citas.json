@@ -14,7 +14,7 @@
     "MedicoId": 2,
     "Fecha": "2026-06-01",
     "Hora": "10:00:00",
-    "Motivo": "Revisión de resultados",
+    "Motivo": "Revisi\u00F3n de resultados",
     "Estado": "Pendiente"
   },
   {
@@ -23,7 +23,16 @@
     "MedicoId": 3,
     "Fecha": "2026-06-15",
     "Hora": "14:00:00",
-    "Motivo": "Revisión de Prostata",
+    "Motivo": "Revisi\u00F3n de Prostata",
     "Estado": "Confirmada"
+  },
+  {
+    "Id": 20,
+    "PacienteId": 20,
+    "MedicoId": 3,
+    "Fecha": "2026-06-10",
+    "Hora": "16:00:00",
+    "Motivo": "Revisi\u00F3n de Pie",
+    "Estado": "Pendiente"
   }
 ]
