@@ -1,11 +1,13 @@
 name: CI
-<<<<<<< HEAD
 
 on:
   push:
-    branches: [main, code-smells]
+    branches:
+      - main
+      - code-smells
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   test:
@@ -26,21 +28,4 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Test
-=======
-on: [push]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Configurar .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.0.x'
-      - name: Restaurar
-        run: dotnet restore
-      - name: Compilar
-        run: dotnet build --no-restore
-      - name: Correr pruebas
->>>>>>> origin/main
-        run: dotnet test --no-build
+        run: dotnet test --no-build --verbosity normal
